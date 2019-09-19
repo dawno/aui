@@ -12,8 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bson.Document;
+
 import com.aui.web.jdbc.JdbcConnection;
 import com.aui.web.models.User;
+import com.aui.web.mongodb.MongoConnection;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 
 
 public class ReadController extends HttpServlet {
@@ -82,7 +89,19 @@ request.setAttribute("last_name", last);
 request.setAttribute("contact", contact);
 request.setAttribute("address",address);  
 				//request.setAttribute("UserObject", u);
-
+MongoConnection connection = new MongoConnection();
+MongoClient mongo= connection.mongoConnection();
+MongoDatabase database = mongo.getDatabase("Office"); 
+MongoCollection<Document> collection = database.getCollection("Information");
+Document myDoc = collection.find( Filters.eq("user_name", user)).first();
+			String firstName= myDoc.getString("first_name");
+			String lastName= myDoc.getString("second_name");
+			String addressName= myDoc.getString("address");
+			String contactInfo = myDoc.getString("contact");
+			request.setAttribute("firstName", firstName);
+			request.setAttribute("lastName", lastName);
+			request.setAttribute("contactInfo", contactInfo);
+			request.setAttribute("addressName", addressName);
 			
 RequestDispatcher rd= request.getRequestDispatcher("show.jsp");
 rd.forward(request, response);

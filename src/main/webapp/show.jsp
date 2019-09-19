@@ -16,14 +16,25 @@
 String second_name= user.getSecond();
 String address= user.getAddress();
 String contact= user.getContact();*/
-String firstName=(String) request.getAttribute("first_name");
-String lastName =(String) request.getAttribute("last_name");
+String first_name=(String) request.getAttribute("first_name");
+String last_name =(String) request.getAttribute("last_name");
 String contact=(String) request.getAttribute("contact");
 String address=(String) request.getAttribute("address");
-out.println(firstName);
-out.println(lastName);
+String firstName=(String) request.getAttribute("firstName");
+String lastName =(String) request.getAttribute("lastName");
+String contactInfo=(String) request.getAttribute("contactInfo");
+String addressName=(String) request.getAttribute("addressName");
+out.println("Data from sql");
+out.println(first_name);
+out.println(last_name);
 out.println(contact);
 out.println(address);
+out.println("Data fron mongo");
+out.println(firstName);
+out.println(lastName);
+out.println(contactInfo);
+out.println(addressName);
+
 %>
 
 
