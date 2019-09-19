@@ -8,32 +8,15 @@
 </head>
 <body>
 <h1> Deletion Form</h1>
-<form action="DeletionRegister" method="post">
+<form action="DeletionRegister" method="get">
 			<table style="with: 50%">
-				<tr>
-					<td>First Name</td>
-					<td><input type="text" name="first" /></td>
-				</tr>
-				<tr>
-					<td>Last Name</td>
-					<td><input type="text" name="last" /></td>
-				</tr>
+				
 				<tr>
 					<td>UserName</td>
 					<td><input type="text" name="user" /></td>
 				</tr>
-					<tr>
-					<td>Password</td>
-					<td><input type="password" name="password" /></td>
-				</tr>
-				<tr>
-					<td>Address</td>
-					<td><input type="text" name="address" /></td>
-				</tr>
-				<tr>
-					<td>Contact No</td>
-					<td><input type="text" name="contact" /></td>
-				</tr></table>
+					
+				</table>
 			<input type="submit" value="Submit" /></form>
 </body>
 </html>

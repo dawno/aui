@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1> Register Form</h1>
-<form action="RegisterController" method="post">
+<form action="RegisterController" method="get">
 			<table style="with: 50%">
 				<tr>
 					<td>First Name</td>
