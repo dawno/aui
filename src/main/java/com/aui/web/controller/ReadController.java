@@ -82,6 +82,7 @@ request.setAttribute("last_name", last);
 request.setAttribute("contact", contact);
 request.setAttribute("address",address);  
 				//request.setAttribute("UserObject", u);
+
 			
 RequestDispatcher rd= request.getRequestDispatcher("show.jsp");
 rd.forward(request, response);

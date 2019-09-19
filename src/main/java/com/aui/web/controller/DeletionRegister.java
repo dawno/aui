@@ -10,7 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bson.Document;
+
 import com.aui.web.jdbc.JdbcConnection;
+import com.aui.web.mongodb.MongoConnection;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 
 /**
  * Servlet implementation class DeletionRegister
@@ -62,6 +69,11 @@ Statement stmt=null;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		 MongoConnection connection = new MongoConnection();
+		    MongoClient mongo= connection.mongoConnection();
+		    MongoDatabase database = mongo.getDatabase("Office"); 
+			MongoCollection<Document> collection = database.getCollection("Information");
+			collection.deleteOne(Filters.eq("user_name", user));
 	}
 
 	

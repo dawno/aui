@@ -10,7 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bson.Document;
+
 import com.aui.web.jdbc.JdbcConnection;
+import com.aui.web.mongodb.MongoConnection;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 
 
@@ -100,8 +106,19 @@ public class RegisterController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-			
+	    
+	    MongoConnection connection = new MongoConnection();
+	    MongoClient mongo= connection.mongoConnection();
+	    MongoDatabase database = mongo.getDatabase("Office"); 
+		MongoCollection<Document> collection = database.getCollection("Information");
+		Document document = new Document("user_name", user) 
+			      .append("first_name", first)
+			      .append("second_name", second) 
+			      .append("contact", contact) 
+			      .append("address", address) 
+			      .append("password", password);  
+			      collection.insertOne(document); 
+	   
 		
 
 	}
