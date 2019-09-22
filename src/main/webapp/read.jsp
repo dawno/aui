@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1> Read Form</h1>
-<form action="ReadController" method="get">
+<form action="ReadController" method="post">
 			<table style="with: 50%">
 				
 				<tr>

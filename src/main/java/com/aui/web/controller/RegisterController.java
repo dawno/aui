@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.*;
 import java.sql.Connection;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.Document;
 
+import com.aui.web.Interfaces.RegisterUser;
 import com.aui.web.jdbc.JdbcConnection;
 import com.aui.web.mongodb.MongoConnection;
+import com.aui.web.util.Functions;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -21,107 +25,58 @@ import com.mongodb.client.MongoDatabase;
 
 
 
-public class RegisterController extends HttpServlet {
+public class RegisterController extends HttpServlet implements RegisterUser {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    Functions fn= new Functions();
     public RegisterController() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String msg="";
 		String first=  request.getParameter("first");
 		String second = request.getParameter("last");
 		String user = request.getParameter("user");
 		String contact= request.getParameter("contact");
 		String address= request.getParameter("address");
 		String password= request.getParameter("password");
-		//System.out.println(first);
-		JdbcConnection jd= new JdbcConnection();
-		Connection con = null;
-		try {
-			 con=  jd.Connectio();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(userExist(user)==0){
+			if(contactExist(contact)==0){
+				registerUser(first,second,user,contact,password,address);
+				msg="User Registered!";
+			}
+			else{
+				msg= "Contact number already in use!!";
+			}
 		}
-	//	String query = "update Information set last_name = ? where first_name = ?";
-	  //  PreparedStatement preparedStmt = con.prepareStatement(query);
-	   // preparedStmt.setString   (1, "singh");
-	   // preparedStmt.setString(2, "utkarsh");
-		String query = " insert into Information (first_name, last_name, user_name, password, contact,address)"
-		        + " values (?, ?, ?, ?,?,?);";
-
-		java.sql.PreparedStatement preparedStmt=null;
-		try {
-			preparedStmt = con.prepareStatement(query);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		else{
+			msg="User already exists";
 		}
-	      try {
-			preparedStmt.setString (1, first);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	      try {
-			preparedStmt.setString (2, second);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	      try {
-			preparedStmt.setString   (3, user);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	      try {
-			preparedStmt.setString(4,password );
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	      try {
-			preparedStmt.setString   (5, contact);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	      try {
-			preparedStmt.setString   (6, address);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-	    // execute the java preparedstatement
-	    try {
-			preparedStmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    
-	    MongoConnection connection = new MongoConnection();
-	    MongoClient mongo= connection.mongoConnection();
-	    MongoDatabase database = mongo.getDatabase("Office"); 
-		MongoCollection<Document> collection = database.getCollection("Information");
-		Document document = new Document("user_name", user) 
-			      .append("first_name", first)
-			      .append("second_name", second) 
-			      .append("contact", contact) 
-			      .append("address", address) 
-			      .append("password", password);  
-			      collection.insertOne(document); 
-	   
-		
-
+				
+		request.setAttribute("Message", msg);
+		RequestDispatcher rd= request.getRequestDispatcher("message.jsp");
+		rd.forward(request, response); 
 	}
+
+	public int userExist(String user) {
+		
+		return fn.userPresent(user);
+	}
+
+	public int contactExist(String contact) {
+		// TODO Auto-generated method stub
+		return fn.contactExist(contact);
+	}
+
+	public int registerUser(String first,String last,String user_name,String contact,String password,String address) {
+		// TODO Auto-generated method stub
+		
+		fn.userRegister( first,last,user_name, contact, password,address);
+		return 0;
+	}
+
+	
 
 	
 

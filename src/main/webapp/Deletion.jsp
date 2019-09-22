@@ -8,12 +8,12 @@
 </head>
 <body>
 <h1> Deletion Form</h1>
-<form action="DeletionRegister" method="get">
+<form action="DeletionRegister" method="post">
 			<table style="with: 50%">
 				
 				<tr>
 					<td>UserName</td>
-					<td><input type="text" name="user" /></td>
+					<td><input type="text" name="user" required/></td>
 				</tr>
 					
 				</table>

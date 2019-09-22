@@ -35,26 +35,19 @@ public class ReadController extends HttpServlet {
     }
 
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String first=  request.getParameter("first");
-				//String second = request.getParameter("last");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 				String user = request.getParameter("user");
-				//String contact= request.getParameter("contact");
-			//	String address= request.getParameter("address");
-			//	String password= request.getParameter("password");
-				//System.out.println(first);
+				
 				JdbcConnection jd= new JdbcConnection();
 				Connection con = null;
 				try {
 					 con=  jd.Connectio();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
-			//	String query = "update Information set last_name = ? where first_name = ?";
-			  //  PreparedStatement preparedStmt = con.prepareStatement(query);
-			   // preparedStmt.setString   (1, "singh");
-			   // preparedStmt.setString(2, "utkarsh");
+			
 				String query = "SELECT first_name, last_name, address, contact FROM Information WHERE user_name = "+"'" +user+"'";
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -79,16 +72,12 @@ public class ReadController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			/*	User u= new User();
-				u.setFirst(first);
-				u.setSecond(last);
-				u.setAddress(address);
-				u.setContact(contact); */
+			
 request.setAttribute("first_name", first);
 request.setAttribute("last_name", last);
 request.setAttribute("contact", contact);
 request.setAttribute("address",address);  
-				//request.setAttribute("UserObject", u);
+				
 MongoConnection connection = new MongoConnection();
 MongoClient mongo= connection.mongoConnection();
 MongoDatabase database = mongo.getDatabase("Office"); 

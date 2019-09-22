@@ -3,37 +3,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Register Form</title>
+<link rel="stylesheet" type="text/css" href="Index.css" />
 </head>
 <body>
-<h1> Register Form</h1>
-<form action="RegisterController" method="get">
-			<table style="with: 50%">
-				<tr>
-					<td>First Name</td>
-					<td><input type="text" name="first" /></td>
-				</tr>
-				<tr>
-					<td>Last Name</td>
-					<td><input type="text" name="last" /></td>
-				</tr>
-				<tr>
-					<td>UserName</td>
-					<td><input type="text" name="user" /></td>
-				</tr>
-					<tr>
-					<td>Password</td>
-					<td><input type="password" name="password" /></td>
-				</tr>
-				<tr>
-					<td>Address</td>
-					<td><input type="text" name="address" /></td>
-				</tr>
-				<tr>
-					<td>Contact No</td>
-					<td><input type="text" name="contact" /></td>
-				</tr></table>
-			<input type="submit" value="Submit" /></form>
+<
+<!-- Hover #1 -->
+
+<div class="box-1" >
+  <div class="btn btn-one">
+  <a href="Deletion.jsp">
+    HOVER ME
+    </a>
+  </div>
+</div>
+ 
+<!-- Hover #2 -->
+<div class="box-2">
+  <div class="btn btn-two">
+    <span>HOVER ME</span>
+  </div>
+</div>
+
+<!-- Hover #3 -->
+<div class="box-3">
+  <div class="btn btn-three">
+    <span>HOVER ME</span>
+  </div>
+</div>
+
+
 </body>
 </html>

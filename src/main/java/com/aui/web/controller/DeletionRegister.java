@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,69 +13,62 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.Document;
 
+import com.aui.web.Interfaces.DeletionInterface;
 import com.aui.web.jdbc.JdbcConnection;
 import com.aui.web.mongodb.MongoConnection;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.aui.web.util.Functions;
 
-/**
- * Servlet implementation class DeletionRegister
- */
-public class DeletionRegister extends HttpServlet {
+public class DeletionRegister extends HttpServlet implements DeletionInterface {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+       Functions fn = new Functions();
+   
     public DeletionRegister() {
         super();
-        // TODO Auto-generated constructor stub
+      
     }
 
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String first=  request.getParameter("first");
-		//String second = request.getParameter("last");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String msg= "";
 		String user = request.getParameter("user");
-		//String contact= request.getParameter("contact");
-	//	String address= request.getParameter("address");
-	//	String password= request.getParameter("password");
-		//System.out.println(first);
-		JdbcConnection jd= new JdbcConnection();
-		Connection con = null;
-		try {
-			 con=  jd.Connectio();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(userExist(user)==1){
+			if(deleteUser(user)==1){
+				 msg= "User deleted!!";
+				
+			}
+			else{
+			 msg= "User did not deleted";
+				}
 		}
-	//	String query = "update Information set last_name = ? where first_name = ?";
-	  //  PreparedStatement preparedStmt = con.prepareStatement(query);
-	   // preparedStmt.setString   (1, "singh");
-	   // preparedStmt.setString(2, "utkarsh");
-		String query = "DELETE FROM Information " +
-                "WHERE user_name = "+"'"+user+"'";
-Statement stmt=null;
-		try {
-			 stmt= con.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		else{
+		 	msg= "User not registered!!";
+			
 		}
-		try {
-			stmt.executeUpdate(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 MongoConnection connection = new MongoConnection();
-		    MongoClient mongo= connection.mongoConnection();
-		    MongoDatabase database = mongo.getDatabase("Office"); 
-			MongoCollection<Document> collection = database.getCollection("Information");
-			collection.deleteOne(Filters.eq("user_name", user));
+		request.setAttribute("Message", msg);
+		RequestDispatcher rd= request.getRequestDispatcher("message.jsp");
+		rd.forward(request, response); 
+		
 	}
+
+
+	public int userExist(String user) {
+		return fn.userPresent(user);
+		
+	}
+
+
+	public int deleteUser(String user) {
+		// TODO Auto-generated method stub
+		return fn.deleteUser(user);
+		
+	}
+
+
+	
 
 	
 

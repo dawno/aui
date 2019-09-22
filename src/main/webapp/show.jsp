@@ -24,16 +24,16 @@ String firstName=(String) request.getAttribute("firstName");
 String lastName =(String) request.getAttribute("lastName");
 String contactInfo=(String) request.getAttribute("contactInfo");
 String addressName=(String) request.getAttribute("addressName");
-out.println("Data from sql");
-out.println(first_name);
-out.println(last_name);
-out.println(contact);
-out.println(address);
-out.println("Data fron mongo");
-out.println(firstName);
-out.println(lastName);
-out.println(contactInfo);
-out.println(addressName);
+out.print("Data from sql");
+out.print(first_name);
+out.print(last_name);
+out.print(contact);
+out.print(address);
+out.print("Data fron mongo");
+out.print(firstName);
+out.print(lastName);
+out.print(contactInfo);
+out.print(addressName);
 
 %>
 

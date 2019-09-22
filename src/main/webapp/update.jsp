@@ -8,19 +8,29 @@
 </head>
 <body>
 <h1> Update Form</h1>
-<form action="UpdateController" method="get">
+<form action="UpdateController" method="post">
 			<table style="with: 50%">
 				
 				<tr>
 					<td>UserName</td>
-					<td><input type="text" name="user" /></td>
+					<td><input type="text" name="user" required/></td>
+				</tr>
+				<tr>
+					<td> Old Password</td>
+					<td><input type="password" name="oldPassword" required/></td>
 				</tr>
 					<tr>
-					<td>Password</td>
-					<td><input type="password" name="password" /></td>
+					<td> New Password</td>
+					<td><input type="password" name="newPassword" required/></td>
 				</tr>
 				
 			</table>
 			<input type="submit" value="Submit" /></form>
+			
+			
+			<form action="read.jsp">
+<input type="submit" value="Read Operation">
+</form>
 </body>
+
 </html>
