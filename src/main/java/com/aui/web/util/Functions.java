@@ -1,11 +1,15 @@
 package com.aui.web.util;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.bson.Document;
 
@@ -156,7 +160,7 @@ public  class Functions {
 
 		return response;
 	}
-	public void readUser(String user){
+	public void readUser(String user, HttpServletRequest request,HttpServletResponse response){
 Connection con =  Connection();
 		String query = "SELECT first_name, last_name, address, contact FROM Information WHERE user_name = "+"'" +user+"'";
 Statement stmt=null;
@@ -194,6 +198,27 @@ Document myDoc = collection.find( Filters.eq("user_name", user)).first();
 	String lastName= myDoc.getString("second_name");
 	String addressName= myDoc.getString("address");
 	String contactInfo = myDoc.getString("contact");
+	
+	request.setAttribute("first_name", first);
+	request.setAttribute("last_name", last);
+	request.setAttribute("contact", contact);
+	request.setAttribute("address",address);  
+	
+	request.setAttribute("firstName", firstName);
+	request.setAttribute("lastName", lastName);
+	request.setAttribute("contactInfo", contactInfo);
+	request.setAttribute("addressName", addressName);
+	RequestDispatcher rd= request.getRequestDispatcher("show.jsp");
+	
+		try {
+			rd.forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 
 	}

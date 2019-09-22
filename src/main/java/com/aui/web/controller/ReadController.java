@@ -14,18 +14,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.Document;
 
+import com.aui.web.Interfaces.ReadInterface;
 import com.aui.web.jdbc.JdbcConnection;
 import com.aui.web.models.User;
 import com.aui.web.mongodb.MongoConnection;
+import com.aui.web.util.Functions;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
 
-public class ReadController extends HttpServlet {
+public class ReadController extends HttpServlet implements ReadInterface {
 	private static final long serialVersionUID = 1L;
-       
+       Functions fn= new Functions();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,65 +38,28 @@ public class ReadController extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String msg= "User does not exist!!";
 				String user = request.getParameter("user");
-				
-				JdbcConnection jd= new JdbcConnection();
-				Connection con = null;
-				try {
-					 con=  jd.Connectio();
-				} catch (Exception e) {
-					
-					e.printStackTrace();
+				if(userExist(user)==1){
+					readUser(user,request,response);
+				}
+				else{
+					request.setAttribute("Message", msg);
+					RequestDispatcher rd= request.getRequestDispatcher("message.jsp");
+					rd.forward(request, response); 
 				}
 			
-				String query = "SELECT first_name, last_name, address, contact FROM Information WHERE user_name = "+"'" +user+"'";
-		Statement stmt=null;
-		ResultSet rs=null;
-		String first=null;
-		String last=null;
-		String address=null;
-		String contact=null;
-				try {
-					 stmt= con.createStatement();
-				
-				 rs	= stmt.executeQuery(query);
-				if(rs.next()){
-				 first= rs.getString("first_name");
-				
-				 last= rs.getString("last_name");
-				
-				 contact= rs.getString("contact");
-				
-					 address = rs.getString("address");
-				}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			
-request.setAttribute("first_name", first);
-request.setAttribute("last_name", last);
-request.setAttribute("contact", contact);
-request.setAttribute("address",address);  
-				
-MongoConnection connection = new MongoConnection();
-MongoClient mongo= connection.mongoConnection();
-MongoDatabase database = mongo.getDatabase("Office"); 
-MongoCollection<Document> collection = database.getCollection("Information");
-Document myDoc = collection.find( Filters.eq("user_name", user)).first();
-			String firstName= myDoc.getString("first_name");
-			String lastName= myDoc.getString("second_name");
-			String addressName= myDoc.getString("address");
-			String contactInfo = myDoc.getString("contact");
-			request.setAttribute("firstName", firstName);
-			request.setAttribute("lastName", lastName);
-			request.setAttribute("contactInfo", contactInfo);
-			request.setAttribute("addressName", addressName);
-			
-RequestDispatcher rd= request.getRequestDispatcher("show.jsp");
-rd.forward(request, response);
+	}
 
+
+	public int userExist(String user) {
+		return fn.userPresent(user);
+	}
+
+
+	public void readUser(String user,HttpServletRequest request,HttpServletResponse response) {
+		
+		fn.readUser(user, request,response);
 	}
 
 	
