@@ -1,36 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="Index.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.vertical-menu {
+  width: 200px;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
 </head>
 <body>
-<
-<!-- Hover #1 -->
 
-<div class="box-1" >
-  <div class="btn btn-one">
-  <a href="Deletion.jsp">
-    HOVER ME
-    </a>
-  </div>
-</div>
- 
-<!-- Hover #2 -->
-<div class="box-2">
-  <div class="btn btn-two">
-    <span>HOVER ME</span>
-  </div>
-</div>
+<h1>Vertical Menu</h1>
 
-<!-- Hover #3 -->
-<div class="box-3">
-  <div class="btn btn-three">
-    <span>HOVER ME</span>
-  </div>
+<div class="vertical-menu">
+  <a href="#" class="active">Home</a>
+  <a href="register.jsp">Create</a>
+  <a href="read.jsp">Read</a>
+  <a href="update.jsp">Update</a>
+  <a href="Deletion.jsp">Delete</a>
 </div>
-
 
 </body>
 </html>

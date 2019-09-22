@@ -8,7 +8,7 @@
 <title>Details</title>
 </head>
 <body>
-<h1>Details<h1>
+<h1>Details</h1>
 
 <%  
 /* User user= (User)request.getAttribute("UserObject");
@@ -20,23 +20,54 @@ String first_name=(String) request.getAttribute("first_name");
 String last_name =(String) request.getAttribute("last_name");
 String contact=(String) request.getAttribute("contact");
 String address=(String) request.getAttribute("address");
+
 String firstName=(String) request.getAttribute("firstName");
 String lastName =(String) request.getAttribute("lastName");
 String contactInfo=(String) request.getAttribute("contactInfo");
 String addressName=(String) request.getAttribute("addressName");
-out.print("Data from sql");
-out.print(first_name);
-out.print(last_name);
-out.print(contact);
-out.print(address);
-out.print("Data fron mongo");
-out.print(firstName);
-out.print(lastName);
-out.print(contactInfo);
-out.print(addressName);
+
 
 %>
-
+<table style="with: 50%">
+				<tr>
+				Data from SQL Database
+					<td>First Name</td>
+					<td> <%=first_name %></td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+					<td><%=last_name%></td>
+				</tr>
+				
+				<tr>
+					<td>Contact</td>
+					<td><%=contact%></td>
+				</tr>
+				<tr>
+					<td>Address</td>
+					<td><%=address%></td>
+				</tr></table>
+			
+			<br>
+			<table style="with: 50%">
+				<tr>
+				Data from MongoDb
+					<td>First Name</td>
+					<td> <%=firstName %></td>
+				</tr>
+				<tr>
+					<td>Last Name</td>
+					<td><%=lastName%></td>
+				</tr>
+				
+				<tr>
+					<td>Contact</td>
+					<td><%=contactInfo%></td>
+				</tr>
+				<tr>
+					<td>Address</td>
+					<td><%=addressName%></td>
+				</tr></table>
 
 </body>
 </html>
